@@ -1,0 +1,42 @@
+[package]
+name = "ws_bench"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "ws_bench"
+path = "src/main.rs"
+
+[dependencies]
+tokio = { version = "1.35", features = ["full"] }
+tokio-tungstenite = { version = "0.21", features = ["native-tls"] }
+tungstenite = "0.21"
+futures-util = "0.3"
+clap = { version = "4.4", features = ["derive"] }
+anyhow = "1.0"
+regex = "1.10"
+once_cell = "1.19"
+url = "2.5"
+native-tls = "0.2"
+tokio-native-tls = "0.3"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt"] }
+thread-priority = "1.0"
+socket2 = "0.5"
+
+[dev-dependencies]
+tokio-test = "0.4"
+portpicker = "0.1"
+futures = "0.3"
+
+[profile.release]
+# 启用完整 LTO (Link Time Optimization) 优化
+lto = "fat"
+# 优化代码大小
+opt-level = "z"
+# 减少二进制文件大小
+strip = true
+# 启用代码生成单元优化
+codegen-units = 1
+# 启用 panic = abort 减小二进制大小
+panic = "abort"
